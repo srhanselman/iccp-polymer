@@ -1,4 +1,5 @@
 import numpy as np
+import f90pot
 
 class chain:
   def __init__(self):
@@ -11,6 +12,10 @@ class chain:
   def add_particle(self,num_options):
     options=self.optional_pos(num_options)
     rand=np.random.uniform(0,1,1)
+    pot=np.zeros((num_options,1),dtype=float)
+    pot=self.calc_pot(pot,options,num_options)
+    W=np.sum(np.exp(-pot))
+    
     self.N+=1
    
   def optional_pos(self,num_options):   
@@ -21,5 +26,7 @@ class chain:
       options[i]=self.positions[self.N-1]+[np.cos(angles1[i])*np.sin(angles2[i])*self.d,np.sin(angles1[i])*self.d*np.sin(angles2[i]),np.cos(angles2[i])]
     return options
   
-      
-
+  def calc_pot(self,pot,options,num_options):
+    #print f90pot.calc_pot.__doc__
+    pot=f90pot.calc_pot(self.positions,options,pot,[self.N,num_options])
+    return pot

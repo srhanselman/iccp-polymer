@@ -1,8 +1,9 @@
 
-subroutine calc_pot(pos,optpos,pot,N,Nopt)
+subroutine calc_pot(pos,optpos,pot,arraylength,N,Nopt)
   implicit none
   integer, intent(in) :: N
-  real(8), intent(in) :: pos(N, 3)
+  integer, intent(in) :: arraylength
+  real(8), intent(in) :: pos(arraylength, 3)
   integer, intent(in) :: Nopt
   real(8), intent(inout) :: pot(Nopt,1)
   !f2py intent(in, out) pot

@@ -8,7 +8,7 @@ T=1
 sigma=0.8
 epsilon=0.25
 
-chain1=chain(100)
-chain1.add_number_of_particles(5)
-chain1.show()
+ChainList=Active_Chains()
+ChainList.run(20,20)
+ChainList.show()
 print 'klaar!'

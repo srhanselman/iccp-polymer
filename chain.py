@@ -33,8 +33,12 @@ class chain:
    
   def optional_pos(self,num_options):   
     options=np.zeros((num_options,3),dtype=float)
-    angles1=np.random.uniform(0,2*np.pi,size=num_options)
-    angles2=np.random.uniform(0,np.pi,size=num_options)
+    rand1=np.random.uniform(0,2*np.pi,size=1)
+    rand2=np.random.uniform(0,np.pi,size=1)
+    angles1=rand1+2*np.pi/num_options*np.arange(0,num_options,dtype=float)
+    angles2=rand2+np.pi/num_options*np.arange(0,num_options,dtype=float)
+    #print angles1,'angles1'
+    #print angles2,'angles2'
     for i in xrange(0,num_options): 
       options[i]=self.positions[self.N-1]+[np.cos(angles1[i])*np.sin(angles2[i])*self.d,np.sin(angles1[i])*self.d*np.sin(angles2[i]),np.cos(angles2[i])]
     return options

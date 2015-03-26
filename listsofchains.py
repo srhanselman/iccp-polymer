@@ -13,8 +13,8 @@ class Active_Chains:
       print "Chain ",i," :"
       self.List[i].show()
     
-  def run(self,num_chains,num_part):
+  def run(self,num_chains,num_part,max_particles):
     for j in xrange(0,num_chains):
-      self.add_chain(chain(100))
+      self.add_chain(chain(max_particles))
     for i in xrange(0,len(self.List)):
       self.List[i].add_number_of_particles(num_part)

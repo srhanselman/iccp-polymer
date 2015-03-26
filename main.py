@@ -1,5 +1,7 @@
-from chain import chain
 from listsofchains import Active_Chains
+#import plotly.plotly as py
+#from plotly.graph_objs import *
+
 print "hello world"
 
 #constants
@@ -9,6 +11,9 @@ sigma=0.8
 epsilon=0.25
 
 ChainList=Active_Chains()
-ChainList.run(20,20)
+ChainList.run(20,99,100)
 ChainList.show()
+
+
+
 print 'klaar!'

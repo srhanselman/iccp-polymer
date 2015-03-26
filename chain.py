@@ -19,6 +19,11 @@ class chain:
     options=self.optional_pos(num_options)
     pot=np.zeros((num_options,1),dtype=float)
     pot=self.calc_pot(pot,options,num_options)
+    print 'pot',pot
+    if any(pot>1000.0):
+      self.prob=0
+      print 'lala'
+      return
     w=np.exp(-pot) #weights
     i,p=self.weighted_random_choice(num_options,w)
     #print 'options[i]', options[i]
@@ -49,10 +54,12 @@ class chain:
     return pot
     
   def weighted_random_choice(self,num_options,w):
-    max = sum(w)
-    pick = np.random.uniform(0, max)
+    maxi = sum(w)
+    if maxi==0:
+        print 'waaaaaaaaah'
+    pick = np.random.uniform(0, maxi)
     current = 0
     for i in xrange(0,num_options):
         current += w[i]
         if current > pick:
-            return i,w[i]/max
+            return i,w[i]/maxi

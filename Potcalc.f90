@@ -10,13 +10,15 @@ subroutine calc_pot(pos,optpos,pot,arraylength,N,Nopt)
   real(8), intent(in) :: optpos(Nopt, 3)
   real(8) :: delta_r(3), dr2
   real(8), parameter :: rmax = 3.2_8
+  real(8), parameter :: sigma = 0.8, foureps = 1.0
   integer :: i, j
   do i = 1, Nopt
   pot(i) = 0.0
     do j=1,N
       delta_r = optpos(i,:) - pos(j,:)
-      dr2 = sum(delta_r**2)
-      pot(i)=pot(i)+4*((1/dr2)**6 - (1/dr2)**3) 
+      dr2 = dot_product(delta_r,delta_r)
+      dr2 = sigma/dr2
+      pot(i)=pot(i)+foureps*(dr2**6 - dr2**3) 
     end do
   end do
 end subroutine

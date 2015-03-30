@@ -19,8 +19,8 @@ class chain:
     options=self.optional_pos(num_options)
     pot=np.zeros((num_options,1),dtype=float)
     pot=self.calc_pot(pot,options,num_options)
-    print 'pot',pot
-    if any(pot>1000.0):
+    #print 'pot',pot
+    if all(pot>1000.0):
       self.prob=0
       print 'lala'
       return
@@ -32,9 +32,11 @@ class chain:
     self.prob=self.prob*p
     self.N+=1
     
-  def add_number_of_particles(self,num_particles):
+  def add_number_of_particles(self,num_particles,num_options):
     for i in xrange(0,num_particles):
-      self.add_particle(5)
+      self.add_particle(num_options)
+      if self.prob<10**-20:
+          return
    
   def optional_pos(self,num_options):   
     options=np.zeros((num_options,3),dtype=float)

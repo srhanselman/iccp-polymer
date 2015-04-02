@@ -19,5 +19,5 @@ ChainList=Active_Chains()
 ChainList.run(numberofchains,numberofparticles,max_num_part,num_options)
 ChainList.show()
 for i in xrange(0,len(ChainList.List)):
-  plotter(ChainList.List[i].positions[0:ChainList.List[1].N],i)
+  plotter(ChainList.List[i].positions[0:ChainList.List[i].N-1],i)
 print 'klaar!'

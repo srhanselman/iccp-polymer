@@ -1,4 +1,5 @@
 from listsofchains import Active_Chains
+from plotter import plotter
 #import plotly.plotly as py
 #from plotly.graph_objs import *
 
@@ -17,5 +18,6 @@ num_options=5
 ChainList=Active_Chains()
 ChainList.run(numberofchains,numberofparticles,max_num_part,num_options)
 ChainList.show()
-
+for i in xrange(0,len(ChainList.List)):
+  plotter(ChainList.List[i].positions[0:ChainList.List[1].N],i)
 print 'klaar!'

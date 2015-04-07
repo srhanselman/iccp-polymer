@@ -8,6 +8,7 @@ class chain:
     self.positions=np.zeros((finalamount,2),dtype=float)
     self.prob=1
     self.d=1 #distance between two connected particles
+    self.Bool=True #Am I a not completely hopeless chain?
     print 'chain created'
   
   def show(self):
@@ -21,14 +22,11 @@ class chain:
     pot=np.zeros((num_options,1),dtype=float)
     pot=self.calc_pot(pot,options,num_options)
     #print 'pot',pot
-    if all(pot>1000.0):
-      self.prob=0
-      print 'lala'
-      return
     w=np.exp(-pot) #weights
+    if all(w==0):
+      self.stop_chain()
+      return
     i,p=self.weighted_random_choice(num_options,w)
-    #print 'options[i]', options[i]
-    #print 'pos',self.positions
     self.positions[self.N]=options[i]
     self.prob=self.prob*p
     self.N+=1
@@ -36,20 +34,15 @@ class chain:
   def add_number_of_particles(self,num_particles,num_options):
     for i in xrange(0,num_particles):
       self.add_particle(num_options)
-      if self.prob<10**-20:
+      if self.Bool==False:
           return
    
   def optional_pos(self,num_options):   
     options=np.zeros((num_options,2),dtype=float)
     rand1=np.random.uniform(0,2*np.pi,size=1)
-    #rand2=np.random.uniform(0,np.pi,size=1)
     angles1=rand1+2*np.pi/num_options*np.arange(0,num_options,dtype=float)
-    #angles2=rand2+np.pi/num_options*np.arange(0,num_options,dtype=float)
-    #print angles1,'angles1'
-    #print angles2,'angles2'
     for i in xrange(0,num_options): 
-      #options[i]=self.positions[self.N-1]+[np.cos(angles1[i])*np.sin(angles2[i])*self.d,np.sin(angles1[i])*self.d*np.sin(angles2[i]),np.cos(angles2[i])]
-      options[i]=self.positions[self.N-1]+[np.cos(angles1[i])*self.d,np.sin(angles1[i])]
+          options[i]=self.positions[self.N-1]+[np.cos(angles1[i])*self.d,np.sin(angles1[i])]
     return options
   
   def calc_pot(self,pot,options,num_options):
@@ -59,11 +52,15 @@ class chain:
     
   def weighted_random_choice(self,num_options,w):
     maxi = sum(w)
-    if maxi==0:
-        print 'waaaaaaaaah'
     pick = np.random.uniform(0, maxi)
     current = 0
     for i in xrange(0,num_options):
         current += w[i]
         if current > pick:
             return i,w[i]/maxi
+            
+  def stop_chain(self):
+      self.prob=0
+      self.Bool=False
+      print 'I am a hopeless chain! :('
+      

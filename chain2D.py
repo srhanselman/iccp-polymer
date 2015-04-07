@@ -3,14 +3,13 @@ import f90pot2D
 
 class chain:
   def __init__(self,finalamount):
-    self.N=1
-    #self.positions=np.zeros((finalamount,3),dtype=float)
+    self.N=2
     self.positions=np.zeros((finalamount,2),dtype=float)
+    self.positions[1]=[0,1]
     self.prob=1
     self.d=1 #distance between two connected particles
     self.Bool=True #Am I a not completely hopeless chain?
-    self.weight #total chain weight yay
-    print 'chain created'
+    self.weight=1 #total chain weight yay
   
   def show(self):
     print 'Chain:'
@@ -22,7 +21,6 @@ class chain:
     options=self.optional_pos(num_options)
     pot=np.zeros((num_options,1),dtype=float)
     pot=self.calc_pot(pot,options,num_options)
-    #print 'pot',pot
     w=np.exp(-pot) #weights
     if all(w==0):
       self.stop_chain()
@@ -44,7 +42,7 @@ class chain:
     rand1=np.random.uniform(0,2*np.pi,size=1)
     angles1=rand1+2*np.pi/num_options*np.arange(0,num_options,dtype=float)
     for i in xrange(0,num_options): 
-          options[i]=self.positions[self.N-1]+[np.cos(angles1[i])*self.d,np.sin(angles1[i])]
+      options[i]=self.positions[self.N-1]+[np.cos(angles1[i])*self.d,np.sin(angles1[i])]
     return options
   
   def calc_pot(self,pot,options,num_options):
@@ -64,5 +62,5 @@ class chain:
   def stop_chain(self):
       self.prob=0
       self.Bool=False
-      print 'I am a hopeless chain! :('
-      
+      self.weight=0
+      #print 'I am a hopeless chain! :('

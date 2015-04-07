@@ -10,9 +10,9 @@ kb=1
 T=1
 sigma=0.8
 epsilon=0.25
-numberofchains=20
-numberofparticles=99 #add this many in chain if possible
-max_num_part=100 #allocating space per chain
+numberofchains=100
+numberofparticles=50
+max_num_part=10000 #allocating space per chain
 num_options=6
 
 ChainList=Active_Chains(numberofchains,numberofparticles,max_num_part,num_options)

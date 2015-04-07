@@ -14,7 +14,7 @@ subroutine calc_pot(pos,optpos,pot,arraylength,N,Nopt)
   integer :: i, j
   do i = 1, Nopt
   pot(i) = 0.0
-    do j=1,N
+    do j=1,N-1
       delta_r = optpos(i,:) - pos(j,:)
       dr2 = dot_product(delta_r,delta_r)
       dr2 = sigma/dr2

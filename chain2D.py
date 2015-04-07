@@ -9,6 +9,7 @@ class chain:
     self.prob=1
     self.d=1 #distance between two connected particles
     self.Bool=True #Am I a not completely hopeless chain?
+    self.weight #total chain weight yay
     print 'chain created'
   
   def show(self):
@@ -26,9 +27,10 @@ class chain:
     if all(w==0):
       self.stop_chain()
       return
-    i,p=self.weighted_random_choice(num_options,w)
+    i,p,W=self.weighted_random_choice(num_options,w)
     self.positions[self.N]=options[i]
     self.prob=self.prob*p
+    self.weight=self.weight*W
     self.N+=1
     
   def add_number_of_particles(self,num_particles,num_options):
@@ -51,13 +53,13 @@ class chain:
     return pot
     
   def weighted_random_choice(self,num_options,w):
-    maxi = sum(w)
-    pick = np.random.uniform(0, maxi)
+    W = sum(w)
+    pick = np.random.uniform(0, W)
     current = 0
     for i in xrange(0,num_options):
         current += w[i]
         if current > pick:
-            return i,w[i]/maxi
+            return i,w[i]/W,W
             
   def stop_chain(self):
       self.prob=0

@@ -12,6 +12,6 @@ def plotter(coords,i):
     mpl.rcParams['legend.fontsize'] = 10    
     fig = plt.figure(1)
     ax = fig.gca()
-    ax.plot(x,y, label='polymer chain %d' %i)
+    ax.plot(x,y, marker='.',label='polymer chain %d' %i)
     ax.legend()    
     plt.show()

@@ -19,8 +19,9 @@ class Active_Chains:
   def show(self):
     print "List of Active Chains:"
     print "Number of chains:",self.num_chains
+    j=0
     for i in self.List:
-      print "Chain ",i," :"
+      print "Chain ",j," :"
       print "N:",i.N
       print "weight:",i.weight
       print "probability:",i.prob

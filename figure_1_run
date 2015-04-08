@@ -1,0 +1,31 @@
+hello world
+I am a hopeless chain! :(
+List of Active Chains:
+Number of chains: 5
+Chain  0  :
+N: 50
+weight: [ 4941432.55827278]
+probability: [  3.21668430e-26]
+Boolean: True
+Chain  1  :
+N: 50
+weight: [ 5025082.871815]
+probability: [  1.27573297e-24]
+Boolean: True
+Chain  2  :
+N: 50
+weight: [ 9769065.94924211]
+probability: [  2.96067722e-26]
+Boolean: True
+Chain  3  :
+N: 50
+weight: [ 10183213.98941111]
+probability: [  3.08295234e-26]
+Boolean: True
+Chain  4  :
+N: 50
+weight: [ 45824462.95234998]
+probability: [  3.08295234e-26]
+Boolean: True
+Trash : 124
+klaar!

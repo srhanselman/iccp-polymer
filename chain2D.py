@@ -42,7 +42,7 @@ class chain:
     rand1=np.random.uniform(0,2*np.pi,size=1)
     angles1=rand1+2*np.pi/num_options*np.arange(0,num_options,dtype=float)
     for i in xrange(0,num_options): 
-      options[i]=self.positions[self.N-1]+[np.cos(angles1[i])*self.d,np.sin(angles1[i])]
+      options[i]=self.positions[self.N-1]+[np.cos(angles1[i])*self.d,np.sin(angles1[i])*self.d]
     return options
   
   def calc_pot(self,pot,options,num_options):
@@ -58,13 +58,13 @@ class chain:
     pick = np.random.uniform(0, W)
     current = 0
     for i in xrange(0,num_options):
-        current += w[i]
-        if current > pick:
-            #print 'i',i,'w[i]',w[i],'W',W
-            return i,w[i]/W,W
-            
+      current += w[i]
+      if current >= pick:
+        return i,w[i]/W,W
+    print 'pick',pick,'current',current       
+     
   def stop_chain(self):
       self.prob=0
       self.Bool=False
       self.weight=0
-      print 'I am a hopeless chain! :('
+      #print 'I am a hopeless chain! :('

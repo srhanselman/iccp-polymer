@@ -31,30 +31,14 @@ class Active_Chains:
     
   def run(self):
     for j in xrange(0,self.numberofparticles-2):
-      for i in self.List[:]:
-        if i.Bool==True:
-          i.add_particle(self.num_options)
-      self.prune2()
+      for i in xrange(len(self.List) - 1, -1, -1): #looping backwards
+        if self.List[i].Bool==True:
+          self.List[i].add_particle(self.num_options)
+        else:
+          del self.List[i]
+      self.prune()
 
   def prune(self):
-    Avweight=np.sum(chain.weight for chain in self.List)/self.num_chains
-    UpLim=2.0*Avweight/self.weight3
-    LowLim=1.2*Avweight/self.weight3
-    for i in self.List[:]:
-      if i.weight>UpLim:
-        i.weight=i.weight*0.5
-        self.add_chain(copy.deepcopy(i)) #python does weird referencings!
-        #print ":D"
-      else:
-        if i.weight<=LowLim:
-          rand=np.random.uniform(0.0,1.0,size=1)
-          if rand<0.5:
-            self.trash(i)
-            #print ":("
-          else:
-            i.weight=i.weight*2                     
-    
-  def prune2(self):
     Avweight=np.sum(chain.weight for chain in self.List)/len(self.List)
     UpLim=2.0*Avweight/self.weight3
     LowLim=1.2*Avweight/self.weight3
@@ -62,13 +46,13 @@ class Active_Chains:
       if self.List[i].weight>UpLim:
         self.List[i].weight=self.List[i].weight*0.5
         self.add_chain(copy.deepcopy(self.List[i])) #python does weird referencings!
-        #print ":D"
+        print ":D"
       else:
         if self.List[i].weight<=LowLim:
           rand=np.random.uniform(0.0,1.0,size=1)
           if rand<0.5:
            del self.List[i]
-            #print ":("
+           print ":("
           else:
               self.List[i].weight=self.List[i].weight*2      
               

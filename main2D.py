@@ -11,7 +11,7 @@ T=1
 sigma=0.8
 epsilon=0.25
 numberofchains=10
-numberofparticles=50
+numberofparticles=20
 num_options=6
 
 ChainList=Active_Chains(numberofchains,numberofparticles,num_options)

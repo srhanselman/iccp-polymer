@@ -1,5 +1,5 @@
 from listsofchains2D import Active_Chains
-from plotter2D import plotter
+from plotter2D import plotter,plotData
 #import plotly.plotly as py
 #from plotly.graph_objs import *
 
@@ -20,4 +20,6 @@ ChainList.run()
 print "Number of chains:",len(ChainList.List)
 #for i in xrange(0,len(ChainList.List)):
  # plotter(ChainList.List[i].positions[0:ChainList.List[i].N],i)
+
+plotData(ChainList.end2endData,'Number of beads','end to end radii squared','end2end')
 print 'klaar!'

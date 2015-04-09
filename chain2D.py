@@ -68,3 +68,7 @@ class chain:
       self.Bool=False
       self.weight=0
       #print 'I am a hopeless chain! :('
+
+  def Calc_end2end(self):
+    end2end=np.sum(self.positions[self.N-1]**2)
+    return end2end

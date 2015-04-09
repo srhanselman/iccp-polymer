@@ -8,6 +8,7 @@ class Active_Chains:
     self.num_options=num_options
     self.init_list(numberofchains)
     self.weight3=self.calc_w3()
+    self.end2endData=np.zeros((numberofparticles-2,4),dtype=float)
     
   def init_list(self,numberofchains):
     for i in xrange(0,numberofchains):
@@ -40,7 +41,8 @@ class Active_Chains:
             self.List[i]=chain(self.numberofparticles) #new chain
             self.List[i].add_number_of_particles(j,self.num_options)
           #print 'NEW CHAIN'
-      #if np.remainder(j,20)==0:          
+      #if np.remainder(j,20)==0:
+      self.end2end(j)   
       self.prune(j)
 
   def prune(self,j):
@@ -68,14 +70,13 @@ class Active_Chains:
 #        del self.List[i]
 #          self.List[i]=chain(self.numberofparticles) #new chain
 #          self.List[i].add_number_of_particles(j,self.num_options)
-
       
   def calc_w3(self):
     w3chain=chain(3)
     w3chain.add_particle(self.num_options)
     return w3chain.weight  
     
-  def trash(self,chain):
-    self.List.remove(chain)
-    self.num_chains-=1
-    
+  def end2end(self,particleNumber):
+    avend2end=np.sum(chain.Calc_end2end() for chain in self.List)/len(self.List)
+    sigma=np.sqrt(np.sum((chain.Calc_end2end()-avend2end)**2 for chain in self.List)/len(self.List))
+    self.end2endData[particleNumber]=(particleNumber+3,avend2end,sigma,len(self.List))

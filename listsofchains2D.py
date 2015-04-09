@@ -30,36 +30,46 @@ class Active_Chains:
     
   def run(self):
     for j in xrange(0,self.numberofparticles-2):
+      print 'j',j,'N',len(self.List)
       for i in xrange(len(self.List) - 1, -1, -1): #looping backwards
         if self.List[i].Bool==True:
           self.List[i].add_particle(self.num_options)
         else:
-          del self.List[i]
-#          self.List[i]=chain(self.numberofparticles) #new chain
-#          self.List[i].add_number_of_particles(j)
-#          print 'NEW CHAIN'          
-      self.prune()
+#          del self.List[i]
+          while self.List[i].Bool==False:
+            self.List[i]=chain(self.numberofparticles) #new chain
+            self.List[i].add_number_of_particles(j,self.num_options)
+          #print 'NEW CHAIN'
+      #if np.remainder(j,20)==0:          
+      self.prune(j)
 
-  def prune(self):
+  def prune(self,j):
+    for i in xrange(0,len(self.List)):
+      self.List[i].weight=self.List[i].weight/(0.75*self.num_options)    
     Avweight=np.sum(chain.weight for chain in self.List)/len(self.List)
     UpLim=2.0*Avweight/self.weight3
     LowLim=1.2*Avweight/self.weight3
     for i in xrange(len(self.List) - 1, -1, -1): #looping backwards
-      self.List[i].weight=self.List[i].weight/(0.75*self.num_options)
       if self.List[i].weight>UpLim:
         self.List[i].weight=self.List[i].weight*0.5
         self.add_chain(copy.deepcopy(self.List[i])) #python does weird referencings!
-        print ":D"
+        #print ":D"
       else:
-        if self.List[i].weight<=LowLim:
+        if self.List[i].weight<LowLim:
           rand=np.random.uniform(0.0,1.0,size=1)
           if rand<0.5:
             del self.List[i]
-            print "rejected :("
+            #print "rejected :("
           else:
             self.List[i].weight=self.List[i].weight*2
-            print 'going to the next round!'
-              
+            #print 'going to the next round!'
+#    for i in xrange(len(self.List) - 1, -1, -1):      
+#      if self.List[i].Bool==False:
+#        del self.List[i]
+#          self.List[i]=chain(self.numberofparticles) #new chain
+#          self.List[i].add_number_of_particles(j,self.num_options)
+
+      
   def calc_w3(self):
     w3chain=chain(3)
     w3chain.add_particle(self.num_options)

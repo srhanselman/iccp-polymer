@@ -22,7 +22,7 @@ class chain:
     pot=np.zeros((num_options,1),dtype=float)
     pot=self.calc_pot(pot,options,num_options)
     w=np.exp(-pot) #weights
-    if all(w==0):
+    if all(w==0.0):
       self.stop_chain()
       return
     i,p,W=self.weighted_random_choice(num_options,w)
@@ -52,15 +52,19 @@ class chain:
     
   def weighted_random_choice(self,num_options,w):
     W = sum(w)
+    if W==0.0:
+      print 'W',W
+      print  'w',w
     pick = np.random.uniform(0, W)
     current = 0
     for i in xrange(0,num_options):
         current += w[i]
         if current > pick:
+            #print 'i',i,'w[i]',w[i],'W',W
             return i,w[i]/W,W
             
   def stop_chain(self):
       self.prob=0
       self.Bool=False
       self.weight=0
-      #print 'I am a hopeless chain! :('
+      print 'I am a hopeless chain! :('

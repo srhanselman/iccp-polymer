@@ -12,10 +12,9 @@ sigma=0.8
 epsilon=0.25
 numberofchains=10
 numberofparticles=50
-max_num_part=10000 #allocating space per chain
 num_options=6
 
-ChainList=Active_Chains(numberofchains,numberofparticles,max_num_part,num_options)
+ChainList=Active_Chains(numberofchains,numberofparticles,num_options)
 ChainList.run()
 ChainList.show()
 for i in xrange(0,len(ChainList.List)):

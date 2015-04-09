@@ -4,7 +4,6 @@ from chain2D import chain
 class Active_Chains:
   def __init__(self,numberofchains,numberofparticles,num_options):
     self.List=list()
-    self.num_chains=0
     self.numberofparticles=numberofparticles
     self.num_options=num_options
     self.init_list(numberofchains)
@@ -16,7 +15,7 @@ class Active_Chains:
       
   def show(self):
     print "List of Active Chains:"
-    print "Number of chains:",self.num_chains
+    print "Number of chains:",len(self.List)
     j=0
     for i in self.List:
       print "Chain ",j," :"
@@ -28,7 +27,6 @@ class Active_Chains:
   
   def add_chain(self,chain):
     self.List.append(chain)
-    self.num_chains+=1    
     
   def run(self):
     for j in xrange(0,self.numberofparticles-2):
@@ -37,6 +35,9 @@ class Active_Chains:
           self.List[i].add_particle(self.num_options)
         else:
           del self.List[i]
+#          self.List[i]=chain(self.numberofparticles) #new chain
+#          self.List[i].add_number_of_particles(j)
+#          print 'NEW CHAIN'          
       self.prune()
 
   def prune(self):
@@ -44,7 +45,7 @@ class Active_Chains:
     UpLim=2.0*Avweight/self.weight3
     LowLim=1.2*Avweight/self.weight3
     for i in xrange(len(self.List) - 1, -1, -1): #looping backwards
-      self.List[i].weight=self.List[i].weight/(0.75*len(self.List))
+      self.List[i].weight=self.List[i].weight/(0.75*self.num_options)
       if self.List[i].weight>UpLim:
         self.List[i].weight=self.List[i].weight*0.5
         self.add_chain(copy.deepcopy(self.List[i])) #python does weird referencings!
@@ -53,10 +54,11 @@ class Active_Chains:
         if self.List[i].weight<=LowLim:
           rand=np.random.uniform(0.0,1.0,size=1)
           if rand<0.5:
-           del self.List[i]
-           print "rejected :("
+            del self.List[i]
+            print "rejected :("
           else:
-              self.List[i].weight=self.List[i].weight*2      
+            self.List[i].weight=self.List[i].weight*2
+            print 'going to the next round!'
               
   def calc_w3(self):
     w3chain=chain(3)

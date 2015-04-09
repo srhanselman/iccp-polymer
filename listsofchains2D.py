@@ -24,6 +24,7 @@ class Active_Chains:
       print "weight:",i.weight
       print "probability:",i.prob
       print "Boolean:",i.Bool
+      j+=1
   
   def add_chain(self,chain):
     self.List.append(chain)
@@ -43,6 +44,7 @@ class Active_Chains:
     UpLim=2.0*Avweight/self.weight3
     LowLim=1.2*Avweight/self.weight3
     for i in xrange(len(self.List) - 1, -1, -1): #looping backwards
+      self.List[i].weight=self.List[i].weight/(0.75*len(self.List))
       if self.List[i].weight>UpLim:
         self.List[i].weight=self.List[i].weight*0.5
         self.add_chain(copy.deepcopy(self.List[i])) #python does weird referencings!
@@ -52,7 +54,7 @@ class Active_Chains:
           rand=np.random.uniform(0.0,1.0,size=1)
           if rand<0.5:
            del self.List[i]
-           print ":("
+           print "rejected :("
           else:
               self.List[i].weight=self.List[i].weight*2      
               

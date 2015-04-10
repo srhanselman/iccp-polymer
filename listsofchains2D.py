@@ -1,6 +1,7 @@
 import numpy as np
 import copy
 from chain2D import chain
+
 class Active_Chains:
   def __init__(self,numberofchains,numberofparticles,num_options):
     self.List=list()
@@ -80,3 +81,4 @@ class Active_Chains:
     avend2end=np.sum(chain.Calc_end2end() for chain in self.List)/len(self.List)
     sigma=np.sqrt(np.sum((chain.Calc_end2end()-avend2end)**2 for chain in self.List)/len(self.List))
     self.end2endData[particleNumber]=(particleNumber+3,avend2end,sigma,len(self.List))
+    #radius of gyration

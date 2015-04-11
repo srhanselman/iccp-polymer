@@ -8,8 +8,8 @@ kb=1
 T=1
 sigma=0.8
 epsilon=0.25
-numberofchains=10000
-numberofparticles=250
+numberofchains=1000
+numberofparticles=100
 num_options=6
 
 ChainList=Active_Chains(numberofchains,numberofparticles,num_options)

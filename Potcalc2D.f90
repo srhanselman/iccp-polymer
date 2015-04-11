@@ -17,8 +17,7 @@ subroutine calc_pot(pos,optpos,pot,arraylength,N,Nopt)
     do j=1,N-1
       delta_r = optpos(i,:) - pos(j,:)
       dr2 = dot_product(delta_r,delta_r)
-      dr2 = sigma/dr2
-      pot(i)=pot(i)+foureps*(dr2**6 - dr2**3) 
+      pot(i)=pot(i)+foureps*((sigma**2/dr2)**6 - (sigma**2/dr2)**3) 
     end do
   end do
 end subroutine

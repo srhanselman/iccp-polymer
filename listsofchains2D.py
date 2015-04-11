@@ -8,7 +8,6 @@ class Active_Chains:
     self.numberofparticles=numberofparticles
     self.num_options=num_options
     self.init_list(numberofchains)
-    self.weight3=self.calc_w3()
     self.end2endData=np.zeros((numberofparticles-2,4),dtype=float)
     
   def init_list(self,numberofchains):
@@ -34,31 +33,23 @@ class Active_Chains:
     for j in xrange(0,self.numberofparticles-2):
       print 'j',j,'N',len(self.List)
       for i in xrange(len(self.List) - 1, -1, -1): #looping backwards
-        if self.List[i].Bool==True:
           self.List[i].add_particle(self.num_options)
-        else:
-#          del self.List[i]
-          while self.List[i].Bool==False:
-            self.List[i]=chain(self.numberofparticles) #new chain
-            self.List[i].add_number_of_particles(j,self.num_options)
-          #print 'NEW CHAIN'
-      #if np.remainder(j,20)==0:
-      self.end2end(j)   
+      self.end2end(j)
+      #if j==0:
+        #self.weight3=np.mean([chain.weight for chain in self.List])  #calculate weight at 3 particles
       self.prune(j)
 
-  def prune(self,j):
-    for i in xrange(0,len(self.List)):
-      self.List[i].weight=self.List[i].weight/(0.75*self.num_options)    
-    Avweight=np.sum(chain.weight for chain in self.List)/len(self.List)
-    UpLim=2.0*Avweight/self.weight3
-    LowLim=1.2*Avweight/self.weight3
+  def prune(self,j):  
+    Avweight=np.mean([chain.weight for chain in self.List])
     for i in xrange(len(self.List) - 1, -1, -1): #looping backwards
+      UpLim=2.0*Avweight/self.List[i].weight3
+      LowLim=1.2*Avweight/self.List[i].weight3
       if self.List[i].weight>UpLim:
         self.List[i].weight=self.List[i].weight*0.5
         self.add_chain(copy.deepcopy(self.List[i])) #python does weird referencings!
         #print ":D"
       else:
-        if self.List[i].weight<LowLim:
+        if self.List[i].weight<=LowLim:
           rand=np.random.uniform(0.0,1.0,size=1)
           if rand<0.5:
             del self.List[i]
@@ -72,10 +63,6 @@ class Active_Chains:
 #          self.List[i]=chain(self.numberofparticles) #new chain
 #          self.List[i].add_number_of_particles(j,self.num_options)
       
-  def calc_w3(self):
-    w3chain=chain(3)
-    w3chain.add_particle(self.num_options)
-    return w3chain.weight  
     
   def end2end(self,particleNumber):
     avend2end=np.sum(chain.Calc_end2end() for chain in self.List)/len(self.List)

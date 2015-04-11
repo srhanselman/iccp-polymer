@@ -14,10 +14,9 @@ num_options=6
 
 ChainList=Active_Chains(numberofchains,numberofparticles,num_options)
 ChainList.run()
-#ChainList.show()
 print "Number of chains:",len(ChainList.List)
 #for i in xrange(0,len(ChainList.List)):
- # plotter(ChainList.List[i].positions[0:ChainList.List[i].N],i)
+  #plotter(ChainList.List[i].positions[0:ChainList.List[i].N],i)
 
 plotData(ChainList.end2endData,'Number of beads','end to end radii squared','end2end','end2end',True)
 print 'klaar!'

@@ -1,11 +1,9 @@
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 import scipy.optimize as optimization
 
 def plotter(coords,i):    
     x=coords[:,0]
     y=coords[:,1]
-    mpl.rcParams['legend.fontsize'] = 10    
     fig = plt.figure(1)
     ax = fig.gca()
     ax.plot(x,y, marker='.',label='polymer chain %d' %i)

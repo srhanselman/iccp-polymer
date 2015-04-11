@@ -23,7 +23,6 @@ class Active_Chains:
       print "N:",i.N
       print "weight:",i.weight
       print "probability:",i.prob
-      print "Boolean:",i.Bool
       j+=1
   
   def add_chain(self,chain):
@@ -32,11 +31,9 @@ class Active_Chains:
   def run(self):
     for j in xrange(0,self.numberofparticles-2):
       print 'j',j,'N',len(self.List)
-      for i in xrange(len(self.List) - 1, -1, -1): #looping backwards
+      for i in xrange(0,len(self.List)):
           self.List[i].add_particle(self.num_options)
       self.end2end(j)
-      #if j==0:
-        #self.weight3=np.mean([chain.weight for chain in self.List])  #calculate weight at 3 particles
       self.prune(j)
 
   def prune(self,j):  
@@ -55,17 +52,10 @@ class Active_Chains:
             del self.List[i]
             #print "rejected :("
           else:
-            self.List[i].weight=self.List[i].weight*2
-            #print 'going to the next round!'
-#    for i in xrange(len(self.List) - 1, -1, -1):      
-#      if self.List[i].Bool==False:
-#        del self.List[i]
-#          self.List[i]=chain(self.numberofparticles) #new chain
-#          self.List[i].add_number_of_particles(j,self.num_options)
-      
+            self.List[i].weight=self.List[i].weight*2   
     
   def end2end(self,particleNumber):
-    avend2end=np.sum(chain.Calc_end2end() for chain in self.List)/len(self.List)
+    avend2end=np.mean([chain.Calc_end2end() for chain in self.List])
     sigma=np.sqrt(np.sum((chain.Calc_end2end()-avend2end)**2 for chain in self.List)/len(self.List))
     self.end2endData[particleNumber]=(particleNumber+3,avend2end,sigma,len(self.List))
     #radius of gyration

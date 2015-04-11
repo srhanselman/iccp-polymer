@@ -8,7 +8,6 @@ class chain:
     self.positions[1]=[0,1]
     self.prob=1
     self.d=1 #distance between two connected particles
-    self.Bool=True #Am I a not completely hopeless chain?
     self.weight=1 #total chain weight yay
     self.weight3=1
   
@@ -20,7 +19,7 @@ class chain:
 
   def add_particle(self,num_options):
     options=self.optional_pos(num_options)
-    pot=np.zeros((num_options,1),dtype=float)
+    pot=np.zeros(num_options)
     pot=self.calc_pot(pot,options,num_options)
     w=np.exp(-pot) #weights
     if all(w==0.0):
@@ -39,8 +38,6 @@ class chain:
   def add_number_of_particles(self,num_particles,num_options):
     for i in xrange(0,num_particles):
       self.add_particle(num_options)
-      if self.Bool==False:
-          return
    
   def optional_pos(self,num_options):   
     options=np.zeros((num_options,2),dtype=float)
@@ -68,12 +65,6 @@ class chain:
         return i,w[i]/W,W
     print 'pick',pick,'current',current       
      
-  def stop_chain(self):
-      self.prob=0
-      self.Bool=False
-      self.weight=0
-      #print 'I am a hopeless chain! :('
-
   def Calc_end2end(self):
     end2end=np.sum(self.positions[self.N-1]**2)
     return end2end

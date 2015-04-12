@@ -28,6 +28,7 @@ def plotData(data,xlabel,ylabel,title,label,end2end):
   plt.ylabel(ylabel)
   plt.title(title)
   plt.legend()
+  plt.show()
 
 def fit(data):
   N=data[:,0]

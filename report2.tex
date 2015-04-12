@@ -14,14 +14,14 @@
 \maketitle 
 \noindent \hrulefill
 \begin{abstract}
-{\color{blue}soooo abstract}
+In this project a simulation of polymer configurations was made. For this the pruned-enriched Rosenbluth method was used. The end-to-end distance of a polymer as a function of the number of monomers $N$ was found to scale with $N^{0.75}$.This project was done as part of the International Course of Computational Physics at Delft University of Technology.    
 \end{abstract}
 \hrulefill
 \begin{multicols}{2}
 \section*{Introduction}
-The behaviour of polymers is a topic which is important in statistical mechanics \cite{Jos}\cite{Paper}.  For simulating the behaviour it is desired to find the possible polymer configurations. Interesting quantities of polymers to look at {\color{blue}are} the end-to-end distance {\color{blue} and the radius of gyration}.
+The behavior of polymers is a topic which is important in statistical mechanics \cite{Jos}\cite{Paper}.  For simulating the behavior it is desired to find the possible polymer configurations. An interesting quantity of polymers to look at is the end-to-end distance.
 \section*{Simulation description}
-For this simulation the polymers are modelled as existing of a chain of particles with a fixed distance between the particles (where the particles can be whole molecules). The model used assumes that the polymers are in a solution such that the polymers do not feel any interaction with other polymers. Furthermore the polymer segments are assumed to have a higher free energy when completely surrounded by solution instead of being close to another polymer segment. Now the only interaction a polymer has, is between its own segments and then only between the particles (the connection between the particles does not interact with anything). This interaction between two particles at a distance $r$ from each other, is in this simulation described by the Lennard-Jones potential:
+For this simulation the polymers are modeled as existing of a chain of particles with a fixed distance between the particles (where the particles can be whole molecules). The model used assumes that the polymers are in a solution such that the polymers do not feel any interaction with other polymers. Furthermore the polymer segments are assumed to have a higher free energy when completely surrounded by solution instead of being close to another polymer segment. Now the only interaction a polymer has, is between its own segments and then only between the particles (the connection between the particles does not interact with anything). This interaction between two particles at a distance $r$ from each other, is in this simulation described by the Lennard-Jones potential:
 \begin{equation}
  V_{LJ}=4\varepsilon\left[\left(\frac{\sigma}{r}\right)^{ 12}-\left(\frac{\sigma}{r}\right)^{6}\right]
  \label{eq:LennardJones}
@@ -45,13 +45,10 @@ The end-to-end distance of a polymer is the distance between the particles at th
 \centering
 \includegraphics[width=\textwidth]{betereplot.png}
 \caption{A plot of the average squared end-to-end distance of a polymer population starting with 1000 chains, plotted against the number of particles in a chain, which grows to 100 particles. At each addition step the population is pruned and enriched. Also the population size at each addition step is plotted, as well as the theoretical fit for the squared end-to-end distance against the number of particles in a polymer. }
- \label{fig:polymers}
+ \label{fig:end2end}
 \end{figure*} 
-\subsection*{Radius of gyration}
-{\color{blue} I do not know anything about this lalala}
-
 \section*{Conclusions}
-The pruned-enriched Rosenbluth method  for finding the polymer configurations does find end-to-end data that corresponds well to the theoretical relation. {\color{blue}Something about radius of gyration.}
+The pruned-enriched Rosenbluth method  for finding the polymer configurations does find end-to-end data that corresponds well to the theoretical relation.
 \begin{thebibliography}{9}
 \bibitem{Jos} J.M. Thijssen,\emph{ Computational Physics}, Second edition, University Press, Cambridge, 2007
 \bibitem{Paper} Nicolas Combe, Thijs J.H. Vlugt, Pieter Rein ten Wolde and Daan Frenkel, \emph{Dynamic pruned-enriched Rosenbluth method}, Molecular Physics, Vol. 101, No.11, 1675-1682, June 2003
